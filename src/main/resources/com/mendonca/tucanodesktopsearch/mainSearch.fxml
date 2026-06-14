@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #6495ED;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mendonca.gui.MainInterfaceController">
+   <left>
+      <AnchorPane prefHeight="654.0" prefWidth="347.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buttonExecute" layoutX="20.0" layoutY="599.0" mnemonicParsing="false" onAction="#executeTask" prefHeight="36.0" prefWidth="111.0" text="Execute" />
+            <TextField fx:id="folderField" layoutX="13.0" layoutY="37.0" prefHeight="25.0" prefWidth="335.0" />
+            <TextField fx:id="fileNameField" layoutX="14.0" layoutY="91.0" prefHeight="25.0" prefWidth="335.0" />
+            <Label layoutX="20.0" layoutY="14.0" text="Folder Path" />
+            <Label layoutX="20.0" layoutY="74.0" text="File Name" />
+            <Label fx:id="statusLabel" layoutX="6.0" layoutY="645.0" prefHeight="17.0" prefWidth="337.0" text="Status:" />
+            <Group fx:id="groupRadio" layoutX="12.0" layoutY="158.0">
+               <children>
+                  <RadioButton fx:id="radioCreateIndex" layoutX="7.0" layoutY="-24.0" mnemonicParsing="false" onAction="#radioSelected" prefHeight="33.0" prefWidth="117.0" text="Create Index" />
+                  <RadioButton fx:id="radioSearch" layoutX="124.0" layoutY="-15.0" mnemonicParsing="false" onAction="#radioSelected" prefHeight="17.0" prefWidth="92.0" text="Search" />
+                  <RadioButton fx:id="radioRebuildIndex" contentDisplay="TOP" layoutX="209.0" layoutY="-16.0" mnemonicParsing="false" onAction="#radioSelected" prefHeight="18.0" prefWidth="106.0" text="Rebuild Index" />
+
+               </children>
+            </Group>
+            <Button fx:id="buttonStop" layoutX="166.0" layoutY="599.0" mnemonicParsing="false" onAction="#stopTask" prefHeight="36.0" prefWidth="111.0" text="Stop" />
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="672.0" prefWidth="660.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableView" layoutX="-86.0" layoutY="4.0" prefHeight="613.0" prefWidth="728.0">
+               <columns>
+                  <TableColumn fx:id="directoryCol" prefWidth="289.0" text="Directory" />
+                  <TableColumn fx:id="foundFileCol" prefWidth="309.0" text="File" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
