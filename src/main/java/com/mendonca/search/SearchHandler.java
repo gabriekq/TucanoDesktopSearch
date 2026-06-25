@@ -81,10 +81,6 @@ public class SearchHandler {
 
             String directory= listFolders.get(indexPosition);
 
-            if(directory==null){
-                System.out.println(indexPosition);
-            }
-
           if(FileUtils.directoryExists(directory) && !FileUtils.isEmptyFolder(directory) ){
               this.searchFile(directory,fileToSearch);
           }
