@@ -13,11 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -80,16 +77,18 @@ public class SearchHandler {
 
         String fileToSearch = fileNameField.getText().toLowerCase();
 
-        for(String directory :listFolders){
+        for(int indexPosition=0; indexPosition<listFolders.size();indexPosition=indexPosition+1 ){
 
-          if(!FileUtils.directoryExists(directory) ){
-              continue;
+            String directory= listFolders.get(indexPosition);
+
+            if(directory==null){
+                System.out.println(indexPosition);
+            }
+
+          if(FileUtils.directoryExists(directory) && !FileUtils.isEmptyFolder(directory) ){
+              this.searchFile(directory,fileToSearch);
           }
 
-          if(FileUtils.isEmptyFolder(directory)){
-             continue;
-          }
-             this.searchFile(directory,fileToSearch);
         }
 
 
@@ -103,16 +102,21 @@ public class SearchHandler {
         this.statusLabel.setText(Constants.OPERATION_SEARCHING+directoryName);
         });
 
-        List<String> onlyFilesNames = Arrays
-                                 .stream(Objects.requireNonNull(files.listFiles(File::isFile)))
-                                 .map(file-> file.getName().toLowerCase() )
-                                 .toList();
-        for(String fileName :onlyFilesNames){
+      //  if(files.listFiles()!=null) {
+            File[] filesSearch = files.listFiles();
+            for (int indexPosition = 0; indexPosition < filesSearch.length; indexPosition = indexPosition + 1) {
 
-            if(fileName.contains(fileToSearch)){
-                this.addFoundItems(directory,fileName);
+                File file = filesSearch[indexPosition];
+
+                if (file.isFile()) {
+                    String fileName = file.getName().toLowerCase();
+                    if (fileName.contains(fileToSearch)) {
+                        this.addFoundItems(directory, fileName);
+                    }
+                }
             }
-        }
+      //  }
+
 
     }
 

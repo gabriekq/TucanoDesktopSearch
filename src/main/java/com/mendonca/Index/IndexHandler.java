@@ -46,7 +46,7 @@ public class IndexHandler {
 
     public Index createIndex(){
     String dirName =this.folderField.getText();
-    retreveAllSubDirectories(dirName);
+    retrieveAllSubDirectories(dirName);
     Index index = new Index(this.indexAllSubFolders,dirName);
     this.indexAllSubFolders.clear();
     Platform.runLater(() -> {this.statusLabel.setText(Constants.STATUS+Constants.OPERATION_INDEXING+"Done");});
@@ -55,7 +55,7 @@ public class IndexHandler {
 }
 
     public Index createIndex(String dirName){
-        retreveAllSubDirectories(dirName);
+        retrieveAllSubDirectories(dirName);
         Index index = new Index(this.indexAllSubFolders,dirName);
         this.indexAllSubFolders.clear();
         Platform.runLater(() -> {this.statusLabel.setText(Constants.STATUS+Constants.OPERATION_INDEXING+"Done");});
@@ -63,14 +63,16 @@ public class IndexHandler {
         return index;
     }
 
-private void retreveAllSubDirectories(String rootDirectory) {
+private void retrieveAllSubDirectories(String rootDirectory) {
 
     File fileRoot = new File(rootDirectory);
     File[] files = fileRoot.listFiles();
 
     if ( (files != null)   &&  (files.length != 0)) {
 
-        for (File file : files) {
+        for(int indexPosition=0;indexPosition<files.length;indexPosition=indexPosition+1) {
+
+            File file = files[indexPosition];
 
             if (file.isDirectory()) {
 
@@ -80,7 +82,7 @@ private void retreveAllSubDirectories(String rootDirectory) {
                 Platform.runLater(() -> {
                     this.statusLabel.setText(Constants.STATUS+Constants.OPERATION_INDEXING+file.getName());
                 });
-                retreveAllSubDirectories(directoryPath);
+                retrieveAllSubDirectories(directoryPath);
             }
         }
 
@@ -92,7 +94,9 @@ private void retreveAllSubDirectories(String rootDirectory) {
 
         ArrayList<String> keysSubPaths = new ArrayList<>(index.getAllSubFolders().keySet());
 
-        for(String key : keysSubPaths){
+        for(int indexPosition=0;indexPosition<keysSubPaths.size();indexPosition=indexPosition+1){
+
+            String key = keysSubPaths.get(indexPosition);
 
             boolean containsPath = index.getAllSubFolders().get(key).stream().anyMatch(path -> path.contains(rootPath));
 

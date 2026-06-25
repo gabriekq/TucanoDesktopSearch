@@ -1,9 +1,7 @@
 package com.mendonca.gui;
 
 import com.mendonca.search.FoundItem;
-import com.mendonca.utils.Constants;
 import com.mendonca.utils.GuiUtils;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -25,7 +23,7 @@ public class MainInterfaceController {
 
     private HashMap<String, ? super Parent> guiElements;
 
-    private  IndexSearchHandler indexSearchHandler;
+    private IndexSearchFileHandler indexSearchFileHandler;
 
     @FXML
     private Button buttonExecute;
@@ -76,7 +74,7 @@ public class MainInterfaceController {
         LinkedList<RadioButton> radios = GuiUtils.parseMapValues("groupRadio",guiElements);
         radios.get(0).setSelected(true);
 
-        this.indexSearchHandler = new IndexSearchHandler(this.guiElements);
+        this.indexSearchFileHandler = new IndexSearchFileHandler(this.guiElements);
 
     }
 
@@ -107,8 +105,8 @@ public class MainInterfaceController {
             // bloqueia tela e desbloqueia stop
 
             blockFieldsOnExecution(this.guiElements);
-             this.indexSearchHandler.stopThreads();
-             this.indexSearchHandler.execute();
+             this.indexSearchFileHandler.stopThreads();
+             this.indexSearchFileHandler.execute();
             unblockStopButton(this.guiElements);
         }
 
@@ -118,7 +116,7 @@ public class MainInterfaceController {
        // ActionEvent event
           // bloqueia stop e desbloqueia tela;
         blockStopButton(this.guiElements);
-        this.indexSearchHandler.stopThreads();
+        this.indexSearchFileHandler.stopThreads();
         unblockFieldsOnStop(this.guiElements);
 
 
