@@ -37,6 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### IntelliJ IDEA ###
+### Index file ###
 !**/main/resources/tracker/*.ser
 !**/main/resources/indexFiles/*.ser
