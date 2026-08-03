@@ -7,16 +7,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import java.util.HashMap;
+
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.TreeMap;
 
 
 public class GuiUtils {
 
 
 
-    public static <T> T parseMapValues(String key, HashMap<String, ? super Parent> guiElements ){
+    public static <T> T parseMapValues(String key, TreeMap<String, ? super Parent> guiElements ){
 
         Class<?> cls  = guiElements.get(key).getClass();
 
@@ -40,7 +41,7 @@ public class GuiUtils {
     }
 
 
-     public static boolean isValidInputUser(HashMap<String, ? super Parent> guiElements){
+     public static boolean isValidInputUser(TreeMap<String, ? super Parent> guiElements){
 
           TextField folderField=parseMapValues("folderField",guiElements);
           TextField fileNameField=parseMapValues("fileNameField",guiElements);
@@ -77,37 +78,41 @@ public class GuiUtils {
      }
 
 
-     public static void  blockFieldsOnExecution(HashMap<String, ? super Parent> guiElements){
+     public static void  blockFieldsOnExecution(TreeMap<String, ? super Parent> guiElements){
          TextField folderField=parseMapValues("folderField",guiElements);
          TextField fileNameField=parseMapValues("fileNameField",guiElements);
          LinkedList<RadioButton> radios = GuiUtils.parseMapValues("groupRadio",guiElements);
          Button buttonExecute = parseMapValues("buttonExecute",guiElements);
+         Button buttonFolderSelector = parseMapValues("buttonFolderSelector",guiElements);
 
          folderField.setEditable(false);
          fileNameField.setEditable(false);
          radios.forEach(radio->radio.setDisable(true));
          buttonExecute.setDisable(true);
+         buttonFolderSelector.setDisable(true);
      }
 
-     public static void unblockFieldsOnStop(HashMap<String, ? super Parent> guiElements){
+     public static void unblockFieldsOnStop(TreeMap<String, ? super Parent> guiElements){
 
          TextField folderField=parseMapValues("folderField",guiElements);
          TextField fileNameField=parseMapValues("fileNameField",guiElements);
          LinkedList<RadioButton> radios = GuiUtils.parseMapValues("groupRadio",guiElements);
          Button buttonExecute = parseMapValues("buttonExecute",guiElements);
+         Button buttonFolderSelector = parseMapValues("buttonFolderSelector",guiElements);
 
          folderField.setEditable(true);
          fileNameField.setEditable(true);
          radios.forEach(radio->radio.setDisable(false));
          buttonExecute.setDisable(false);
+         buttonFolderSelector.setDisable(false);
      }
 
-     public static void blockStopButton(HashMap<String, ? super Parent> guiElements){
+     public static void blockStopButton(TreeMap<String, ? super Parent> guiElements){
          Button buttonStop =  parseMapValues("buttonStop",guiElements);
          buttonStop.setDisable(true);
      }
 
-     public static void unblockStopButton(HashMap<String, ? super Parent> guiElements){
+     public static void unblockStopButton(TreeMap<String, ? super Parent> guiElements){
          Button buttonStop =  parseMapValues("buttonStop",guiElements);
          buttonStop.setDisable(false);
      }

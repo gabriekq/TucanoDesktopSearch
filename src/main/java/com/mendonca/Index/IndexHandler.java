@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 
 public class IndexHandler {
@@ -21,7 +22,7 @@ public class IndexHandler {
     private Label statusLabel;
 
 
-    public IndexHandler(HashMap<String, ? super Parent> guiElements) {
+    public IndexHandler(TreeMap<String, ? super Parent> guiElements) {
         indexAllSubFolders = new HashMap<>();
         this.folderField = GuiUtils.parseMapValues("folderField",guiElements);
         this.statusLabel = GuiUtils.parseMapValues("statusLabel",guiElements);
