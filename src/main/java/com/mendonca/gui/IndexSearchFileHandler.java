@@ -11,10 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import static com.mendonca.utils.GuiUtils.blockStopButton;
 import static com.mendonca.utils.GuiUtils.unblockFieldsOnStop;
@@ -32,13 +32,13 @@ private LinkedList<RadioButton> radioButtons;
 
 private Label statusLabel;
 
-private HashMap<String, ? super Parent> guiElements;
+private TreeMap<String, ? super Parent> guiElements;
 
 private LinkedList<Thread> threadsList;
 
 private Thread thread;
 
-    public IndexSearchFileHandler(HashMap<String, ? super Parent> guiElements) {
+    public IndexSearchFileHandler(TreeMap<String, ? super Parent> guiElements) {
         this.indexHandler = new IndexHandler(guiElements);
         this.fileHandler = new FileHandler(guiElements);
         this.searchHandler = new SearchHandler(guiElements);
@@ -64,24 +64,17 @@ private Thread thread;
                 this.threadsList.add(thread);
             }
             case "radioSearch" -> {
-                // Runnable sera criado aqui para que tela nao trave
                 Runnable search = this::searchOperations;
                 this.thread = ThreadUtils.createThread("search", search);
                 this.threadsList.add(this.thread);
             }
 
            case "radioRebuildIndex"->{
-             // manter stop bloqueado aqui porque o usuario nao pode interromper a operacao senao ferra tudo
-
-               // passar todos os Runnable para dentro de metodos nessa classe mesmo e chamar o metodo aqui
-               Runnable radioRebuildIndex = this::rebuildIndex;
-
+             Runnable radioRebuildIndex = this::rebuildIndex;
              this.thread = ThreadUtils.createThread("radioRebuildIndex",radioRebuildIndex);
              this.threadsList.add(this.thread);
 
             }
-
-
         }
 
     ThreadUtils.startThreadsList(this.threadsList);
@@ -90,7 +83,6 @@ private Thread thread;
 
 
 public void stopThreads(){
-        // enviar stop para a tela
         this.searchHandler.stopSubThreads();
         ThreadUtils.stopThreadsList(this.threadsList);
 }
@@ -105,7 +97,7 @@ private void rebuildIndex(){
     for (String file : filesNamesList) {
 
         Runnable rebuildOperation = () -> {
-            Index index = this.indexHandler.createIndex(file); // criar um runnable aqui e adicionar na lista
+            Index index = this.indexHandler.createIndex(file);
             this.fileHandler.saveIndexFile(index);
         };
 
@@ -116,7 +108,6 @@ private void rebuildIndex(){
     ThreadUtils.cleanUpSubThreadsDone(rebuildThread);
 
     unblockFieldsOnStop(this.guiElements);
-   //  blockStopButton(this.guiElements);
 }
 
 private void searchOperations(){
@@ -141,10 +132,8 @@ private void createIndexOperations(){
         this.fileHandler.saveIndexFile(index);
     }
 
-    // desbloqueia a tela
     unblockFieldsOnStop(this.guiElements);
     blockStopButton(this.guiElements);
-    // bloqueia o stop
 }
 
 }

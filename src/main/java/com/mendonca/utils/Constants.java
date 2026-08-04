@@ -21,4 +21,8 @@ public class Constants {
 
     public static String FILE_NAME_TRACKER="FileTracker.ser";
 
+    public static String EXCLUDED_FOLDER_NAME_1="System Volume Information";
+
+    public static String EXCLUDED_FOLDER_NAME_BEGIN ="$";
+
 }

@@ -18,7 +18,6 @@ import java.io.ObjectOutputStream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -39,7 +38,7 @@ public class FileHandler {
 
 
 
-    public FileHandler(HashMap<String, ? super Parent> guiElements) {
+    public FileHandler(TreeMap<String, ? super Parent> guiElements) {
 
         this.statusLabel = GuiUtils.parseMapValues("statusLabel",guiElements);
         this.folderField = GuiUtils.parseMapValues("folderField",guiElements);
@@ -75,7 +74,6 @@ public class FileHandler {
     }
 
     public void removeAllIndexFiles(){
-        // implement remove
         File filesRemove = new File(Constants.PATH_INDEX_FILE);
 
         if(filesRemove.listFiles()!=null && Objects.requireNonNull(filesRemove.listFiles()).length>0 ){
@@ -171,11 +169,9 @@ public class FileHandler {
                 setIndex(index);
 
                 if (!index.getRootPath().equals(rootPath)) {
-                    // set index variable
                     IndexHandler.narrowIndex(index, rootPath);
                     return  Optional.of(index);
                 } else {
-                    // set index variable
                     return Optional.of(index);
                 }
             }
@@ -184,7 +180,7 @@ public class FileHandler {
         }
     }
 
-    private  String mappingIndexFileName(String rootPath) {  // return the closest index if path aaa/abc does not exist so return de add/
+    private  String mappingIndexFileName(String rootPath) {
 
         int numberElement=0;
         String regexSplitValue="[\\\\]";

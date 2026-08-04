@@ -1,5 +1,6 @@
 package com.mendonca.gui;
 
+import com.mendonca.tucanodesktopsearch.ControllerInitializableGUI;
 import com.mendonca.search.FoundItem;
 import com.mendonca.utils.GuiUtils;
 import javafx.event.ActionEvent;
@@ -11,17 +12,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
+import static com.mendonca.tucanodesktopsearch.HelloApplication.startScene;
 import static com.mendonca.utils.GuiUtils.*;
 
 
-public class MainInterfaceController {
+public class MainInterfaceController implements ControllerInitializableGUI {
 
 
 
-    private HashMap<String, ? super Parent> guiElements;
+    private TreeMap<String, ? super Parent> guiElements;
 
     private IndexSearchFileHandler indexSearchFileHandler;
 
@@ -30,6 +33,9 @@ public class MainInterfaceController {
 
     @FXML
     private Button buttonStop;
+
+    @FXML
+    private Button buttonFolderSelector;
 
     @FXML
     private Label statusLabel;
@@ -52,11 +58,11 @@ public class MainInterfaceController {
     public TableColumn<FoundItem,String> foundFileCol;
 
     public MainInterfaceController() {
-     this.guiElements   = new HashMap<>();
+     this.guiElements   = new TreeMap<>();
 
     }
-
-    public void initScreamComponets(){
+    @Override
+    public void initScreenComponents(){
 
         this.guiElements.put("folderField",folderField);
         this.guiElements.put("fileNameField",fileNameField);
@@ -64,6 +70,7 @@ public class MainInterfaceController {
         this.guiElements.put("statusLabel",statusLabel);
         this.guiElements.put("buttonExecute",buttonExecute);
         this.guiElements.put("buttonStop",buttonStop);
+        this.guiElements.put("buttonFolderSelector",buttonFolderSelector);
         blockStopButton(this.guiElements);
 
         this.directoryCol.setCellValueFactory(new PropertyValueFactory<>("foundDirectory"));
@@ -86,7 +93,7 @@ public class MainInterfaceController {
              radioButton.setSelected(true);
          }
          unSelectDifferentRadioButton(idValue,groupRadio);
-     } // keeps the Radio buttons select in consistent way
+     }
 
       public void unSelectDifferentRadioButton(String buttonKeep,Group groupRadio){
 
@@ -102,8 +109,6 @@ public class MainInterfaceController {
       public void executeTask(){
 
         if(GuiUtils.isValidInputUser(this.guiElements)){
-            // bloqueia tela e desbloqueia stop
-
             blockFieldsOnExecution(this.guiElements);
              this.indexSearchFileHandler.stopThreads();
              this.indexSearchFileHandler.execute();
@@ -113,12 +118,23 @@ public class MainInterfaceController {
       }
 
     public void stopTask() {
-       // ActionEvent event
-          // bloqueia stop e desbloqueia tela;
         blockStopButton(this.guiElements);
         this.indexSearchFileHandler.stopThreads();
         unblockFieldsOnStop(this.guiElements);
+    }
 
 
+    public void openFolderSelectorMenu(){
+
+        try {
+            startScene("tucanoFolderExplorer.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public  void setSearchPathFolderExplorer(String folderPath){
+        this.folderField.setText(folderPath);
     }
 }

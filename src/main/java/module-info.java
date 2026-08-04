@@ -11,4 +11,7 @@ module com.mendonca.tucanodesktopsearch {
     opens com.mendonca.gui to javafx.fxml;
     exports com.mendonca.search;
     opens com.mendonca.search to javafx.fxml;
+    exports explorer.gui;
+    opens explorer.gui to javafx.fxml;
+
 }

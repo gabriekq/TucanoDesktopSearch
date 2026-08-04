@@ -40,3 +40,4 @@ build/
 ### Index file ###
 !**/main/resources/tracker/*.ser
 !**/main/resources/indexFiles/*.ser
+!**/main/resources/tracker/FileTracker.ser

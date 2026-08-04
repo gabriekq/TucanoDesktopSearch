@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -30,7 +31,7 @@ public class SearchHandler {
 
     private LinkedList<Thread> threadsListSearch;
 
-    public SearchHandler(HashMap<String, ? super Parent> guiElements) {
+    public SearchHandler(TreeMap<String, ? super Parent> guiElements) {
       this.tableView = GuiUtils.parseMapValues("tableView",guiElements);
       this.fileNameField = GuiUtils.parseMapValues("fileNameField",guiElements);
       this.statusLabel=GuiUtils.parseMapValues("statusLabel",guiElements);
@@ -41,14 +42,13 @@ public class SearchHandler {
 
     public void search(Index index){
 
-        // Criar pesquisa para a pasta corrent somente
         if(!FileUtils.isEmptyFolder(index.getRootPath())){
             String fileToSearch = fileNameField.getText().toLowerCase();
             this.searchFile(index.getRootPath(),fileToSearch);
         }
 
 
-       HashMap<String, LinkedList<String>> allSubDirectories = index.getAllSubFolders(); //
+       HashMap<String, LinkedList<String>> allSubDirectories = index.getAllSubFolders();
 
        this.searchAllFolders(allSubDirectories);
         Platform.runLater(()->{
@@ -98,7 +98,6 @@ public class SearchHandler {
         this.statusLabel.setText(Constants.OPERATION_SEARCHING+directoryName);
         });
 
-      //  if(files.listFiles()!=null) {
             File[] filesSearch = files.listFiles();
             for (int indexPosition = 0; indexPosition < filesSearch.length; indexPosition = indexPosition + 1) {
 
@@ -111,8 +110,6 @@ public class SearchHandler {
                     }
                 }
             }
-      //  }
-
 
     }
 
