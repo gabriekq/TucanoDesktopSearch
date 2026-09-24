@@ -57,6 +57,21 @@ Only the rebuild index option needs to be select and the execute button to be pu
 
 ![Alt text](docs/tucanoDesktop-3.jpg?raw=true "Application Rebuild Index Feature")
 
+#### Folder Explorer
+
+The Tucano Desktop Search has a module called Folder Explorer.
+<br>
+That Allows the user to navigate and select the folder to be searched without the need to manually type the full path.
+<br>
+![Alt text](docs/tucanoFolderExplorer-1.jpg?raw=true "Folder Explorer")
+
+**Folder Explorer usage**
+<br>
+In order to use the feature just the follow steps.
+
+- Select the Button called **Select Folder** at the main search.
+- Select on the Driver drop box menu the driver where the search will be performed.
+
 ### Technologies Used
 
 This project were developed using the Java 17, JavaFX and IntelliJ IDEA 2022 community.

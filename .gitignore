@@ -38,6 +38,5 @@ build/
 .DS_Store
 
 ### Index file ###
-!**/main/resources/tracker/*.ser
-!**/main/resources/indexFiles/*.ser
-!**/main/resources/tracker/FileTracker.ser
+!**/main/resources/tracker/
+!**/main/resources/indexFiles/
