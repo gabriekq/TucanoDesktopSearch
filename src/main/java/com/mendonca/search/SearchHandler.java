@@ -2,16 +2,21 @@ package com.mendonca.search;
 
 
 import com.mendonca.Index.Index;
+import com.mendonca.utils.CommandPowerShell;
 import com.mendonca.utils.Constants;
 import com.mendonca.utils.FileUtils;
 import com.mendonca.utils.GuiUtils;
 import com.mendonca.utils.ThreadUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,13 +36,15 @@ public class SearchHandler {
 
     private LinkedList<Thread> threadsListSearch;
 
+    private CommandPowerShell command;
+
     public SearchHandler(TreeMap<String, ? super Parent> guiElements) {
       this.tableView = GuiUtils.parseMapValues("tableView",guiElements);
       this.fileNameField = GuiUtils.parseMapValues("fileNameField",guiElements);
       this.statusLabel=GuiUtils.parseMapValues("statusLabel",guiElements);
       this.foundItems=new LinkedBlockingQueue<>();
       this.threadsListSearch = new LinkedList<>();
-
+      this.command = new CommandPowerShell();
     }
 
     public void search(Index index){
@@ -86,8 +93,6 @@ public class SearchHandler {
           }
 
         }
-
-
     }
 
     private void searchFile(String directory, String fileToSearch){
@@ -106,16 +111,34 @@ public class SearchHandler {
                 if (file.isFile()) {
                     String fileName = file.getName().toLowerCase();
                     if (fileName.contains(fileToSearch)) {
-                        this.addFoundItems(directory, fileName);
+                        FoundItem  foundItem= new FoundItem(directory,fileName);
+                        this.addFoundItems(foundItem);
                     }
                 }
             }
 
     }
 
-    private void addFoundItems(String pathDirectory, String fileFound){
+    public void clickOpenExplorerEvent(MouseEvent mouseEvent){
+       Button  button = (Button) mouseEvent.getSource();
+       int idButton = Integer.parseInt(button.getId());
+       FoundItem foundItem = this.tableView.getItems().get(idButton);
+       String directory = foundItem.getFoundDirectory();
+       command.openExplorer(directory);
 
-        this.foundItems.add(new FoundItem(pathDirectory,fileFound));
+    }
+
+    private void addFoundItems(FoundItem foundItem){
+
+        Button button = new Button();
+        EventHandler<MouseEvent> clickOpenExplorerEvent = this::clickOpenExplorerEvent;
+        button.setOnMouseClicked(clickOpenExplorerEvent);
+        button.setText("Folder");
+        String currentId= String.valueOf(foundItems.size())  ;
+        button.setId(currentId);
+        foundItem.setButtonExplorer(button);
+
+        this.foundItems.add(foundItem);
 
         Platform.runLater(()->
         this.tableView.setItems(FXCollections.observableArrayList(this.foundItems))
