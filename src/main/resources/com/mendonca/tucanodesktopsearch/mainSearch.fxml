@@ -44,7 +44,8 @@
             <TableView fx:id="tableView" layoutX="-1.0" layoutY="4.0" prefHeight="759.0" prefWidth="887.0">
                <columns>
                   <TableColumn fx:id="directoryCol" prefWidth="390.0" text="Directory" />
-                  <TableColumn fx:id="foundFileCol" prefWidth="442.0" text="File" />
+                  <TableColumn fx:id="foundFileCol" prefWidth="415.0" text="File" />
+                  <TableColumn fx:id="buttonExplorerCol" prefWidth="70.0" text="Explorer" />
                </columns>
             </TableView>
          </children>

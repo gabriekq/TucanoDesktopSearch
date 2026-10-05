@@ -57,6 +57,9 @@ public class MainInterfaceController implements ControllerInitializableGUI {
     @FXML
     public TableColumn<FoundItem,String> foundFileCol;
 
+    @FXML
+    public TableColumn<FoundItem,Button> buttonExplorerCol;
+
     public MainInterfaceController() {
      this.guiElements   = new TreeMap<>();
 
@@ -75,6 +78,7 @@ public class MainInterfaceController implements ControllerInitializableGUI {
 
         this.directoryCol.setCellValueFactory(new PropertyValueFactory<>("foundDirectory"));
         this.foundFileCol.setCellValueFactory(new PropertyValueFactory<>("foundFile"));
+        this.buttonExplorerCol.setCellValueFactory(new PropertyValueFactory<>("buttonExplorer"));
 
         this.guiElements.put("tableView",tableView);
 

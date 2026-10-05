@@ -1,5 +1,8 @@
 
 ### Added
+#### [1.2.0] - 2026-05-10
+- Creation of the button Called **Folder** that opens the path in the file explorer on Windows.
+
 #### [1.1.0] - 2026-03-08
 - At this version was added the folder selection feature which facilitate the processes to insert the path
 of the folder deserved to be searched.

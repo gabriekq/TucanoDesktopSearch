@@ -1,9 +1,13 @@
 package com.mendonca.search;
 
+import javafx.scene.control.Button;
+
 public class FoundItem {
 
     private String foundFile;
     private String foundDirectory;
+
+    private Button buttonExplorer;
 
     public FoundItem(String foundDirectory, String foundFile) {
         this.foundFile = foundFile;
@@ -24,5 +28,13 @@ public class FoundItem {
 
     public void setFoundDirectory(String foundDirectory) {
         this.foundDirectory = foundDirectory;
+    }
+
+    public Button getButtonExplorer() {
+        return buttonExplorer;
+    }
+
+    public void setButtonExplorer(Button buttonExplorer) {
+        this.buttonExplorer = buttonExplorer;
     }
 }
