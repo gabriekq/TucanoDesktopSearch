@@ -36,6 +36,8 @@ public class SearchHandler {
 
     private LinkedList<Thread> threadsListSearch;
 
+    private LinkedList<Thread>  threadsCommandPowerShell;
+
     private CommandPowerShell command;
 
     public SearchHandler(TreeMap<String, ? super Parent> guiElements) {
@@ -45,6 +47,7 @@ public class SearchHandler {
       this.foundItems=new LinkedBlockingQueue<>();
       this.threadsListSearch = new LinkedList<>();
       this.command = new CommandPowerShell();
+      this.threadsCommandPowerShell = new LinkedList<>();
     }
 
     public void search(Index index){
@@ -120,11 +123,22 @@ public class SearchHandler {
     }
 
     public void clickOpenExplorerEvent(MouseEvent mouseEvent){
-       Button  button = (Button) mouseEvent.getSource();
-       int idButton = Integer.parseInt(button.getId());
-       FoundItem foundItem = this.tableView.getItems().get(idButton);
-       String directory = foundItem.getFoundDirectory();
-       command.openExplorer(directory);
+
+       if(!this.threadsCommandPowerShell.isEmpty()){
+           ThreadUtils.stopThreadsList(this.threadsCommandPowerShell);
+       }
+
+       Runnable openExplorerRunnable = () ->{
+            Button  button = (Button) mouseEvent.getSource();
+            int idButton = Integer.parseInt(button.getId());
+            FoundItem foundItem = this.tableView.getItems().get(idButton);
+            String directory = foundItem.getFoundDirectory();
+            command.openExplorer(directory);
+        };
+
+        Thread openExplorerThread  =ThreadUtils.createThread("openExplorerThread",openExplorerRunnable);
+        this.threadsCommandPowerShell.add(openExplorerThread);
+        ThreadUtils.startThreadsList(this.threadsCommandPowerShell);
 
     }
 
