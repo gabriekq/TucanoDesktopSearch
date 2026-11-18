@@ -1,6 +1,7 @@
 package com.mendonca.tucanodesktopsearch;
 
 import com.mendonca.gui.MainInterfaceController;
+import com.mendonca.utils.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -64,6 +65,12 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+
+        if(args.length>0){
+            System.out.println("Path Set : "+args[0]);
+            Constants.PATH_INDEX_FILE=args[0];
+            Constants.PATH_TRACKER_FILE=args[0];
+        }
         launch();
     }
 }
