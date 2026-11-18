@@ -51,6 +51,13 @@ public class FileHandler {
         File trackerDir = new File(Constants.PATH_TRACKER_FILE);
         File[] trackers = trackerDir.listFiles();
 
+        if(!trackerDir.exists()){
+            boolean dirCreated =trackerDir.mkdir();
+            System.out.println("Directory created : "+dirCreated);
+            trackerDir = new File(Constants.PATH_TRACKER_FILE);
+            trackers = trackerDir.listFiles();
+        }
+
         boolean fileExists = Arrays.stream(Objects.requireNonNull(trackers))
                 .filter(File::isFile)
                 .anyMatch(tracker -> tracker.getName().contains(Constants.FILE_NAME_TRACKER));

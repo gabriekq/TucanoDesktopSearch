@@ -15,9 +15,9 @@ public class Constants {
 
     public static String OPERATION_FILE_EXISTS="File Already Exists";
 
-    public static String PATH_INDEX_FILE ="src/main/resources/indexFiles/";
+    public static String PATH_INDEX_FILE ="src/main/resources/tucanoFiles/";
 
-    public static String PATH_TRACKER_FILE="src/main/resources/tracker/";
+    public static String PATH_TRACKER_FILE="src/main/resources/tucanoFiles/";
 
     public static String FILE_NAME_TRACKER="FileTracker.ser";
 
