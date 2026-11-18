@@ -40,6 +40,8 @@ In order to use the Application to search a file the user must ender.
 
  - The Folder Path
  - File Name
+<br>
+At the button called 'Folder' the user can open the folder that contains the file found doing the search
 
 ![Alt text](docs/tucanoDesktop-1.jpg?raw=true "Application Search Feature")
 
